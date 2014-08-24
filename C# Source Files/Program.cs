@@ -119,51 +119,65 @@ namespace Simple_FTP_Client
         /// <param name="password"></param>
         private static void UploadFile(string FTPAddress, string filePath, string username, string password)
         {
-            //Create FTP request
-            FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(FTPAddress + "/" + Path.GetFileName(filePath));
+            try
+            {
+                //Create FTP request
+                FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(FTPAddress + "/" + Path.GetFileName(filePath));
 
-            request.Method = WebRequestMethods.Ftp.UploadFile;
-            request.Credentials = new NetworkCredential(username, password);
-            request.UsePassive = true;
-            request.UseBinary = true;
-            request.KeepAlive = false;
+                request.Method = WebRequestMethods.Ftp.UploadFile;
+                request.Credentials = new NetworkCredential(username, password);
+                request.UsePassive = true;
+                request.UseBinary = true;
+                request.KeepAlive = false;
 
-            //Load the file
-            FileStream stream = File.OpenRead(filePath);
-            byte[] buffer = new byte[stream.Length];
+                //Load the file
+                FileStream stream = File.OpenRead(filePath);
+                byte[] buffer = new byte[stream.Length];
 
-            stream.Read(buffer, 0, buffer.Length);
-            stream.Close();
+                stream.Read(buffer, 0, buffer.Length);
+                stream.Close();
 
-            //Upload file
-            Stream reqStream = request.GetRequestStream();
-            reqStream.Write(buffer, 0, buffer.Length);
-            reqStream.Close();
+                //Upload file
+                Stream reqStream = request.GetRequestStream();
+                reqStream.Write(buffer, 0, buffer.Length);
+                reqStream.Close();
 
-            Console.WriteLine("Uploaded Successfully");
+                Console.WriteLine("Uploaded Successfully");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error! \n" + e.ToString());
+            }
         }
 
         private static void DownloadFile(string FTPFileAddress, string Username, string Password, string LocalFileName)
         {
-            // Create a new instance of the WebClient
-            WebClient request = new WebClient();
+            try
+            {
+                // Create a new instance of the WebClient
+                WebClient request = new WebClient();
 
-            // Setup the credentials
-            request.Credentials = new NetworkCredential(Username, Password);
+                // Setup the credentials
+                request.Credentials = new NetworkCredential(Username, Password);
 
-            // Download the data in a byte array
-            byte[] FileData = request.DownloadData(FTPFileAddress);
+                // Download the data in a byte array
+                byte[] FileData = request.DownloadData(FTPFileAddress);
 
-            // Create a FileStream so we can store the downloaded data
-            FileStream file = File.Create(LocalFileName);
+                // Create a FileStream so we can store the downloaded data
+                FileStream file = File.Create(LocalFileName);
 
-            // Write the raw downloaded data to the file.
-            file.Write(FileData, 0, FileData.Length);
+                // Write the raw downloaded data to the file.
+                file.Write(FileData, 0, FileData.Length);
 
-            // Close the FileStream
-            file.Close();
+                // Close the FileStream
+                file.Close();
 
-            Console.WriteLine("Download completed.");
+                Console.WriteLine("Download completed.");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error! \n" + e.ToString());
+            }
         }
     }
 }
