@@ -43,6 +43,9 @@ namespace Simple_FTP_Client
                 case "help":
                     help();
                     break;
+                case "exit":
+                    Environment.Exit(0);
+                    break;
                 default:
                     Console.WriteLine("Woops, command not found.");
                     break;
