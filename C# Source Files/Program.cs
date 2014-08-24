@@ -16,6 +16,7 @@ namespace Simple_FTP_Client
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Simple FTP Client.");
+            Console.WriteLine("Type help for a list of commands.");
 
             while (true)
             {
@@ -29,7 +30,7 @@ namespace Simple_FTP_Client
             string cmd;
 
             // Get it.
-            Console.Write("$ ");
+            Console.Write("> ");
             cmd = Console.ReadLine();
 
             switch(cmd.ToLower())
@@ -54,7 +55,7 @@ namespace Simple_FTP_Client
 
         private static void help()
         {
-            Console.WriteLine("The available commands are: \n upload file \n download file \n help");
+            Console.WriteLine("The available commands are: \n Upload File \n Download File \n Help");
         }
 
         /// <summary>
@@ -66,16 +67,16 @@ namespace Simple_FTP_Client
             string FTPAddress, FilePath, Username, Password;
 
             // Get them
-            Console.Write("FTP address =");
+            Console.Write("FTP Address = ");
             FTPAddress = Console.ReadLine();
 
-            Console.Write("Username =");
+            Console.Write("Username = ");
             Username = Console.ReadLine();
 
-            Console.Write("Password =");
+            Console.Write("Password = ");
             Password = Console.ReadLine();
 
-            Console.Write("File =");
+            Console.Write("File = ");
             FilePath = Console.ReadLine();
 
             // Call the UploadFile method
@@ -88,19 +89,19 @@ namespace Simple_FTP_Client
         private static void GetVariablesForDownloadFile()
         {
             // Get the variables
-            Console.Write("FTP Server address =");
+            Console.Write("FTP Server Address = ");
             string FTPAddress = Console.ReadLine();
 
-            Console.Write("Username =");
+            Console.Write("Username = ");
             string Username = Console.ReadLine();
 
-            Console.Write("Password =");
+            Console.Write("Password = ");
             string Password = Console.ReadLine();
 
-            Console.Write("Filename on FTP server =");
+            Console.Write("Filename on FTP Server = ");
             string FTPFile = Console.ReadLine();
 
-            Console.Write("Local filename =");
+            Console.Write("Local Filename = ");
             string LocalFilename = Console.ReadLine();
 
             // Call the DownloadFile method
@@ -142,7 +143,7 @@ namespace Simple_FTP_Client
                 reqStream.Write(buffer, 0, buffer.Length);
                 reqStream.Close();
 
-                Console.WriteLine("Uploaded Successfully");
+                Console.WriteLine("Uploaded completed without errors.");
             }
             catch (Exception e)
             {
