@@ -40,7 +40,21 @@ namespace Simple_FTP_Client
                 case "download file":
                     GetVariablesForDownloadFile();
                     break;
+                case "help":
+                    help();
+                    break;
+                case "exit":
+                    Environment.Exit(0);
+                    break;
+                default:
+                    Console.WriteLine("Woops, command not found.");
+                    break;
             }
+        }
+
+        private static void help()
+        {
+            Console.WriteLine("The available commands are: \n upload file \n download file \n help");
         }
 
         /// <summary>
