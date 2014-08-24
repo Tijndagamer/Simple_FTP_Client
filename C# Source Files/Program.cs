@@ -37,6 +37,9 @@ namespace Simple_FTP_Client
                 case "upload file":
                     GetVariablesForUploadFile();
                     break;
+                case "download file":
+                    GetVariablesForDownloadFile();
+                    break;
             }
         }
 
@@ -63,6 +66,32 @@ namespace Simple_FTP_Client
 
             // Call the UploadFile method
             UploadFile(FTPAddress, FilePath, Username, Password);
+        }
+
+        /// <summary>
+        /// Gets the variables for the DownloadFile method and then calls it.
+        /// </summary>
+        private static void GetVariablesForDownloadFile()
+        {
+            // Get the variables
+            Console.Write("FTP Server address =");
+            string FTPAddress = Console.ReadLine();
+
+            Console.Write("Username =");
+            string Username = Console.ReadLine();
+
+            Console.Write("Password =");
+            string Password = Console.ReadLine();
+
+            Console.Write("Filename on FTP server =");
+            string FTPFile = Console.ReadLine();
+
+            Console.Write("Local filename =");
+            string LocalFilename = Console.ReadLine();
+
+            // Call the DownloadFile method
+            DownloadFile(FTPAddress + "/" + FTPFile, Username, Password, LocalFilename);
+            
         }
 
         // FTP methods.
@@ -98,6 +127,29 @@ namespace Simple_FTP_Client
             reqStream.Close();
 
             Console.WriteLine("Uploaded Successfully");
+        }
+
+        private static void DownloadFile(string FTPFileAddress, string Username, string Password, string LocalFileName)
+        {
+            // Create a new instance of the WebClient
+            WebClient request = new WebClient();
+
+            // Setup the credentials
+            request.Credentials = new NetworkCredential(Username, Password);
+
+            // Download the data in a byte array
+            byte[] FileData = request.DownloadData(FTPFileAddress);
+
+            // Create a FileStream so we can store the downloaded data
+            FileStream file = File.Create(LocalFileName);
+
+            // Write the raw downloaded data to the file.
+            file.Write(FileData, 0, FileData.Length);
+
+            // Close the FileStream
+            file.Close();
+
+            Console.WriteLine("Download completed.");
         }
     }
 }
