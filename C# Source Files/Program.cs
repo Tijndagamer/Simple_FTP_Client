@@ -143,7 +143,7 @@ namespace Simple_FTP_Client
                 reqStream.Write(buffer, 0, buffer.Length);
                 reqStream.Close();
 
-                Console.WriteLine("Uploaded completed without errors.");
+                Console.WriteLine("Upload completed without errors.");
             }
             catch (Exception e)
             {
