@@ -2,7 +2,6 @@ Goals for Release 3:
 =====================
 
 * Add a logging option
-* Look at the log for what has been uploaded and when
 * ~~Add documentation~~
 * ~~Add option to save credentials & ftp server~~
 
