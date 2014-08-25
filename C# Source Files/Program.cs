@@ -37,16 +37,28 @@ namespace Simple_FTP_Client
             switch(cmd.ToLower())
             {
                 case "upload file":
-                    GetVariablesForUploadFile();
+                    GetVariablesForUploadFile(false);
+                    break;
+                case "upload file -silent":
+                    GetVariablesForUploadFile(true);
                     break;
                 case "download file":
-                    GetVariablesForDownloadFile();
+                    GetVariablesForDownloadFile(false);
                     break;
-                case "get files in dir":
-                    PrintAllFilesInDir();
+                case "download file -silent":
+                    GetVariablesForDownloadFile(true);
                     break;
                 case "download all files in dir":
-                    DownloadAllFilesInDir();
+                    DownloadAllFilesInDir(false);
+                    break;
+                case "download all files in dir -silent":
+                    DownloadAllFilesInDir(true);
+                    break;
+                case "get files in dir":
+                    PrintAllFilesInDir(false);
+                    break;
+                case "get files in dir -silent":
+                    PrintAllFilesInDir(true);
                     break;
                 case "help":
                     help();
@@ -68,7 +80,7 @@ namespace Simple_FTP_Client
         /// <summary>
         /// Gets the variables for the UploadFile method and then calls it.
         /// </summary>
-        private static void GetVariablesForUploadFile()
+        private static void GetVariablesForUploadFile(bool Silent)
         {
             // Get the variables
             Console.Write("FTP Address = ");
@@ -84,13 +96,13 @@ namespace Simple_FTP_Client
             string FilePath = Console.ReadLine();
 
             // Call the UploadFile method
-            FTP.UploadFile(FTPAddress, FilePath, Username, Password);
+            FTP.UploadFile(FTPAddress, FilePath, Username, Password, Silent);
         }
 
         /// <summary>
         /// Gets the variables for the DownloadFile method and then calls it.
         /// </summary>
-        private static void GetVariablesForDownloadFile()
+        private static void GetVariablesForDownloadFile(bool Silent)
         {
             // Get the variables
             Console.Write("FTP Server Address = ");
@@ -109,13 +121,13 @@ namespace Simple_FTP_Client
             string LocalFilename = Console.ReadLine();
 
             // Call the DownloadFile method
-            FTP.DownloadFile(FTPAddress + "/" + FTPFile, Username, Password, LocalFilename); 
+            FTP.DownloadFile(FTPAddress + "/" + FTPFile, Username, Password, LocalFilename, Silent); 
         }
 
         /// <summary>
         /// Get the variables to call GetFilesInDir and then print the returned values
         /// </summary>
-        private static void PrintAllFilesInDir()
+        private static void PrintAllFilesInDir(bool Silent)
         {
             // First get the variables
             Console.Write("FTP Server Address = ");
@@ -131,7 +143,7 @@ namespace Simple_FTP_Client
             string FolderOnServer = Console.ReadLine();
 
             // Call the method and store the return variables
-            string[] FilesInDir = FTP.GetFilesInDir(FTPAddress + "/" + FolderOnServer, Username, Password);
+            string[] FilesInDir = FTP.GetFilesInDir(FTPAddress + "/" + FolderOnServer, Username, Password, Silent);
 
             // Print out the contents of the FilesInDir array
             foreach(string file in FilesInDir)
@@ -140,7 +152,7 @@ namespace Simple_FTP_Client
             }
         }
 
-        private static void DownloadAllFilesInDir()
+        private static void DownloadAllFilesInDir(bool Silent)
         {
             // First get the variables
             Console.Write("FTP Server Address = ");
@@ -156,7 +168,7 @@ namespace Simple_FTP_Client
             string FolderOnServer = Console.ReadLine();
 
             // Call the FilesInDir method to see which files are in the dir, and save them in a stringp[]
-            string[] FilesInDir = FTP.GetFilesInDir(FTPAddress + "/" + FolderOnServer, Username, Password);
+            string[] FilesInDir = FTP.GetFilesInDir(FTPAddress + "/" + FolderOnServer, Username, Password, Silent);
 
             // Create a new local dir if it doesn't exists already
             if (!(Directory.Exists("/" + FolderOnServer)))
@@ -172,7 +184,7 @@ namespace Simple_FTP_Client
                 string FTPFileAddress = FTPAddress + "/" + File;
 
                 // Download the file
-                FTP.DownloadFile(FTPFileAddress, Username, Password, File);
+                FTP.DownloadFile(FTPFileAddress, Username, Password, File, Silent);
             }
         }
     }
