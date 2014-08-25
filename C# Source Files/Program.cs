@@ -60,10 +60,19 @@ namespace Simple_FTP_Client
                 case "get files in dir -silent":
                     PrintAllFilesInDir(true);
                     break;
+                case "upload folder":
+                    UploadLocalFolder(false);
+                    break;
+                case "upload folder -silent":
+                    UploadLocalFolder(true);
+                    break;
                 case "help":
                     help();
                     break;
                 case "exit":
+                    Environment.Exit(0);
+                    break;
+                case "quit":
                     Environment.Exit(0);
                     break;
                 default:
@@ -152,6 +161,10 @@ namespace Simple_FTP_Client
             }
         }
 
+        /// <summary>
+        /// Downloads all the files in one dir on the FTP server
+        /// </summary>
+        /// <param name="Silent"></param>
         private static void DownloadAllFilesInDir(bool Silent)
         {
             // First get the variables
@@ -180,11 +193,47 @@ namespace Simple_FTP_Client
             // Foreach file in the folder, download it
             foreach (string File in FilesInDir)
             {
+                // Print which file is going to be uploaded
+                Console.WriteLine("    File : " + File);
+
                 // Make a FTP File address
                 string FTPFileAddress = FTPAddress + "/" + File;
 
                 // Download the file
                 FTP.DownloadFile(FTPFileAddress, Username, Password, File, Silent);
+            }
+        }
+
+        /// <summary>
+        /// Uploads one local folder, including it's content to a FTP server
+        /// </summary>
+        /// <param name="Silent"></param>
+        private static void UploadLocalFolder(bool Silent)
+        {
+            // First get the variables
+            Console.Write("FTP Server Address = ");
+            string FTPAddress = Console.ReadLine();
+
+            Console.Write("Username = ");
+            string Username = Console.ReadLine();
+
+            Console.Write("Password = ");
+            string Password = Console.ReadLine();
+
+            Console.Write("Folder = ");
+            string LocalFolder = Console.ReadLine();
+
+            // Get the contents of the LocalFolder
+            string[] FilesInLocalFolder = Directory.GetFiles(LocalFolder);
+
+            // Foreach file in the local folder, upload it
+            foreach (string File in FilesInLocalFolder)
+            {
+                // Print which file is going to be uploaded
+                Console.WriteLine("    File : " + File);
+
+                // Upload the file
+                FTP.UploadFile(FTPAddress, File, Username, Password, Silent);
             }
         }
     }

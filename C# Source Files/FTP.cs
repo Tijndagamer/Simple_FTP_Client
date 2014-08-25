@@ -11,7 +11,7 @@ namespace Simple_FTP_Client
     class FTP
     {
         /// <summary>
-        /// Uploads a file 
+        /// Uploads a file to a FTP server
         /// </summary>
         /// <param name="FTPAddress">The address of the FTP server</param>
         /// <param name="filePath">The path to the file that you want to upload</param>
