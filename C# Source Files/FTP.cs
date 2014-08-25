@@ -8,6 +8,9 @@ using System.Net;
 
 namespace Simple_FTP_Client
 {
+    /// <summary>
+    /// The class with the methods which handle all the FTP related things.
+    /// </summary>
     class FTP
     {
         /// <summary>
