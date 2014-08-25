@@ -54,6 +54,13 @@ namespace Simple_FTP_Client
             }
         }
 
+        /// <summary>
+        /// Download a file from a FTP server
+        /// </summary>
+        /// <param name="FTPFileAddress">The address to the file.</param>
+        /// <param name="Username">The username</param>
+        /// <param name="Password">The password</param>
+        /// <param name="LocalFileName">The local filename</param>
         public static void DownloadFile(string FTPFileAddress, string Username, string Password, string LocalFileName)
         {
             try

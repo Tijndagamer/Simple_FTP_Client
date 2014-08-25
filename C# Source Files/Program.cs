@@ -15,6 +15,7 @@ namespace Simple_FTP_Client
 
         static void Main(string[] args)
         {
+            // Welcome the user.
             Console.WriteLine("Welcome to Simple FTP Client.");
             Console.WriteLine("Type help for a list of commands.");
 
@@ -42,7 +43,10 @@ namespace Simple_FTP_Client
                     GetVariablesForDownloadFile();
                     break;
                 case "get files in dir":
-                    PrintAllFilesInDirectory();
+                    PrintAllFilesInDir();
+                    break;
+                case "download all files in dir":
+                    DownloadAllFilesInDir();
                     break;
                 case "help":
                     help();
@@ -58,7 +62,7 @@ namespace Simple_FTP_Client
 
         private static void help()
         {
-            Console.WriteLine("The available commands are: \n Upload File \n Download File \n Get files in dir \n Help");
+            Console.WriteLine("The available commands are: \n Upload File \n Download File \n Get files in dir \n Download all files in dir \n Help");
         }
 
         /// <summary>
@@ -111,7 +115,7 @@ namespace Simple_FTP_Client
         /// <summary>
         /// Get the variables to call GetFilesInDir and then print the returned values
         /// </summary>
-        private static void PrintAllFilesInDirectory()
+        private static void PrintAllFilesInDir()
         {
             // First get the variables
             Console.Write("FTP Server Address = ");
@@ -133,6 +137,42 @@ namespace Simple_FTP_Client
             foreach(string file in FilesInDir)
             {
                 Console.WriteLine(file);
+            }
+        }
+
+        private static void DownloadAllFilesInDir()
+        {
+            // First get the variables
+            Console.Write("FTP Server Address = ");
+            string FTPAddress = Console.ReadLine();
+
+            Console.Write("Username = ");
+            string Username = Console.ReadLine();
+
+            Console.Write("Password = ");
+            string Password = Console.ReadLine();
+
+            Console.Write("Folder on server = ");
+            string FolderOnServer = Console.ReadLine();
+
+            // Call the FilesInDir method to see which files are in the dir, and save them in a stringp[]
+            string[] FilesInDir = FTP.GetFilesInDir(FTPAddress + "/" + FolderOnServer, Username, Password);
+
+            // Create a new local dir if it doesn't exists already
+            if (!(Directory.Exists("/" + FolderOnServer)))
+            {
+                Directory.CreateDirectory(FolderOnServer);
+                Console.WriteLine("Created new dir...");
+            }
+
+            // Foreach file in the folder, download it
+            foreach (string File in FilesInDir)
+            {
+                // Make a FTP File address
+                string FTPFileAddress = FTPAddress + "/" + File;
+
+                // Download the file
+                FTP.DownloadFile(FTPFileAddress, Username, Password, File);
             }
         }
     }
