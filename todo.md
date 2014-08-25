@@ -5,7 +5,7 @@ Goals for Release 2:
 * Add command to show what's in the FTP server
 * Add command to download all files in one folder
 * Add command to upload all file in one local folder to one folder on the FTP server
-* Add a loggin option
+* Add a logging option
 
 Goals for Release 3:
 =====================
