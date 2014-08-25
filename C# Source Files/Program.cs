@@ -10,8 +10,8 @@ namespace Simple_FTP_Client
 {
     class Program
     {
-
-        // Main and etc methods.
+        // Global variables
+        public static string Username, Password;
 
         static void Main(string[] args)
         {
@@ -36,6 +36,7 @@ namespace Simple_FTP_Client
 
             switch(cmd.ToLower())
             {
+                // FTP commands
                 case "upload file":
                     UserInteraction.GetVariablesForUploadFile(false);
                     break;
@@ -66,6 +67,16 @@ namespace Simple_FTP_Client
                 case "upload folder -silent":
                     UserInteraction.UploadLocalFolder(true);
                     break;
+
+                // Credentials commands
+                case "save credentials":
+                    CredentialsHandling.SaveCredentials();
+                    break;
+                case "load credentials":
+                    CredentialsHandling.LoadCredentials();
+                    break;
+
+                // Main Commands
                 case "help":
                     UserInteraction.help();
                     break;
@@ -79,33 +90,6 @@ namespace Simple_FTP_Client
                     Console.WriteLine("Woops, command not found.");
                     break;
             }
-        }
-
-
-
-        // Credentials saving & loading methods [WIP]
-
-        private static void SaveCredentials()
-        {
-            // Get the credentials
-            Console.Write("Username = ");
-            string Username = Console.ReadLine();
-
-            Console.Write("Password = ");
-            string Password = Console.ReadLine();
-
-            // Create a new FileStream
-            FileStream FileStream = File.OpenWrite("Credentials");
-
-            // Create a new StreamWriter
-            StreamWriter writer = new StreamWriter(FileStream);
-
-            // Write the credentials to a file
-            writer.Write(Username);
-            writer.Write(Password);
-
-            // Close the streamwriter
-            writer.Close();
         }
     }
 }

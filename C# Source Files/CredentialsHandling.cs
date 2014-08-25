@@ -26,14 +26,29 @@ namespace Simple_FTP_Client
             FileStream FileStream = File.OpenWrite("Credentials");
 
             // Create a new StreamWriter
-            StreamWriter writer = new StreamWriter(FileStream);
+            StreamWriter Writer = new StreamWriter(FileStream);
 
             // Write the credentials to a file
-            writer.Write(Username);
-            writer.Write(Password);
+            Writer.Write(Username);
+            Writer.Write(Password);
 
             // Close the streamwriter
-            writer.Close();
+            Writer.Close();
+        }
+        public static void LoadCredentials()
+        {
+            // Create a new FileStream
+            FileStream FileStream = File.OpenRead("Credentials");
+
+            // Create a new StreamReader instance to read the file
+            StreamReader Reader = new StreamReader(FileStream);
+
+            // Read the file and assign the variables
+            Program.Username = Reader.ReadLine();
+            Program.Password = Reader.ReadLine();
+
+            // Close the reader
+            Reader.Close();
         }
     }
 }
