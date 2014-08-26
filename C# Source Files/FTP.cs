@@ -25,24 +25,19 @@ namespace Simple_FTP_Client
             try
             {
                 // Create FTP request
-                if (Silent == false)
-                {
-                    Console.WriteLine("    Create a new request and setting up the properties...");
-                }
+                Program.Check(Silent, "    Create a new request and setting up the properties...");
                 FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(FTPAddress + "/" + Path.GetFileName(Filepath));
 
                 // Set the properties
                 request.Method = WebRequestMethods.Ftp.UploadFile;
+                Program.Check(Silent, "    Logging in using username: " + Username);
                 request.Credentials = new NetworkCredential(Username, Password);
                 request.UsePassive = true;
                 request.UseBinary = true;
                 request.KeepAlive = false;
 
                 // Load the file
-                if (Silent == false)
-                {
-                    Console.WriteLine("    Loading the file...");
-                }
+                Program.Check(Silent, "    Loading the file...");
                 FileStream stream = File.OpenRead(Filepath);
                 byte[] buffer = new byte[stream.Length];
 
@@ -50,10 +45,7 @@ namespace Simple_FTP_Client
                 stream.Close();
 
                 // Upload file
-                if (Silent == false)
-                {
-                    Console.WriteLine("    Uploading the file...");
-                }
+                Program.Check(Silent, "    Uploading the file...");
                 Stream reqStream = request.GetRequestStream();
                 reqStream.Write(buffer, 0, buffer.Length);
                 reqStream.Close();
@@ -81,27 +73,18 @@ namespace Simple_FTP_Client
                 WebClient request = new WebClient();
 
                 // Setup the credentials
-                if (Silent == false)
-                {
-                    Console.WriteLine("    Setting up the credentials...");
-                }
+                Program.Check(Silent, "    Logging in using username: " + Username);
                 request.Credentials = new NetworkCredential(Username, Password);
 
                 // Download the data in a byte array
-                if (Silent == false)
-                {
-                    Console.WriteLine("    Downloading the raw data...");
-                }
+                Program.Check(Silent, "    Downloading the raw data...");
                 byte[] FileData = request.DownloadData(FTPFileAddress);
 
                 // Create a FileStream so we can store the downloaded data
                 FileStream file = File.Create(LocalFileName);
 
                 // Write the raw downloaded data to the file.
-                if (Silent == false)
-                {
-                    Console.WriteLine("    Writing the raw data to a file...");
-                }
+                Program.Check(Silent, "    Writing the raw data to a file...");
                 file.Write(FileData, 0, FileData.Length);
 
                 // Close the FileStream
@@ -130,24 +113,19 @@ namespace Simple_FTP_Client
                 StringBuilder result = new StringBuilder();
 
                 // Create a new instance of the FtpWebRequest class
-                if (Silent == false)
-                {
-                    Console.WriteLine("    Create a new request and setting up the properties...");
-                }
+                Program.Check(Silent, "    Create a new request and setting up the properties...");
                 FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(FTPFolderAddress);
 
                 // Set the properties
                 request.Method = WebRequestMethods.Ftp.ListDirectory;
+                Program.Check(Silent, "    Logging in using username: " + Username);
                 request.Credentials = new NetworkCredential(Username, Password);
                 request.UseBinary = true;
                 request.UsePassive = false;
                 request.KeepAlive = false;
 
                 // Get the response from the FTP server
-                if (Silent == false)
-                {
-                    Console.WriteLine("    Get the Response...");
-                }
+                Program.Check(Silent, "    Get the Response...");
                 WebResponse response = request.GetResponse();
 
                 // Create a new instance of the StreamReader class to read the response

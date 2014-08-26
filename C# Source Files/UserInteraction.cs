@@ -17,7 +17,7 @@ namespace Simple_FTP_Client
         /// </summary>
         public static void help()
         {
-            Console.WriteLine("The available commands are: \n Upload File \n Download File \n Get files in dir \n Download all files in dir \n Help");
+            Console.WriteLine("The available commands are: \n Upload File \n Download File \n Get files in dir \n Download all files in dir \n Enable logging \n Disable logging \n Help");
         }
 
         // User interaction methods

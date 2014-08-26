@@ -10,6 +10,7 @@ namespace Simple_FTP_Client
     {
         // Global variables
         public static string Username, Password;
+        public static bool Logging = false;
 
         static void Main(string[] args)
         {
@@ -74,6 +75,16 @@ namespace Simple_FTP_Client
                     CredentialsHandling.LoadCredentials();
                     break;
 
+                // Logging commands
+                case "enable logging":
+                    Logging = true;
+                    Console.WriteLine("Logging is now enabled.");
+                    break;
+                case "disable logging":
+                    Logging = false;
+                    Console.WriteLine("Logging is now disabled");
+                    break;
+
                 // Main Commands
                 case "help":
                     UserInteraction.help();
@@ -87,6 +98,23 @@ namespace Simple_FTP_Client
                 default:
                     Console.WriteLine("Woops, command not found.");
                     break;
+            }
+        }
+
+        /// <summary>
+        /// The if/else statement for logging/output, to reduce the amount of copy code and lines
+        /// </summary>
+        /// <param name="Silent"></param>
+        /// <param name="Message"></param>
+        public static void Check(bool Silent, string Message)
+        {
+            if (Silent == false)
+            {
+                Console.WriteLine(Message);
+            }
+            if (Program.Logging == true)
+            {
+                Log.LogOneLine(Message);
             }
         }
     }
