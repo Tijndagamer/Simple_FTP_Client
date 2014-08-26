@@ -35,7 +35,7 @@ namespace Simple_FTP_Client
             cmd = Console.ReadLine();
 
             // Log the command if logging is enabled
-            Check(false, cmd);
+            Check(true, cmd);
 
             switch(cmd.ToLower())
             {

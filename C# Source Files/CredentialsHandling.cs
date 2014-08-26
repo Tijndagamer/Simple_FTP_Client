@@ -38,7 +38,6 @@ namespace Simple_FTP_Client
             Writer.Close();
 
             // Tell the user the credentials are saved
-            Console.WriteLine("Saved credentials.");
             Program.Check(false, "Saved credentials.");
         }
         public static void LoadCredentials()
@@ -60,7 +59,6 @@ namespace Simple_FTP_Client
                 Reader.Close();
 
                 // Tell the user the credentials are now loaded
-                Console.WriteLine("Loaded credentials.");
                 Program.Check(false, "Loaded credentials.");
             }
             else

@@ -22,8 +22,7 @@ namespace Simple_FTP_Client
             // Create the full message
             string WriteMessage = Timestamp + LogMessage;
 
-            Console.WriteLine(WriteMessage);
-
+            // Add to the LogList
             Program.LogList.Add(WriteMessage);
         }
 
