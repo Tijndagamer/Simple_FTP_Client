@@ -11,6 +11,7 @@ namespace Simple_FTP_Client
         // Global variables
         public static string Username, Password;
         public static bool Logging = false;
+        public static List<string> LogList = new List<string>();
 
         static void Main(string[] args)
         {
@@ -32,6 +33,9 @@ namespace Simple_FTP_Client
             // Get it.
             Console.Write("> ");
             cmd = Console.ReadLine();
+
+            // Log the command if logging is enabled
+            Check(false, cmd);
 
             switch(cmd.ToLower())
             {
@@ -90,9 +94,13 @@ namespace Simple_FTP_Client
                     UserInteraction.help();
                     break;
                 case "exit":
+                    Log.WriteLogToFile();
+                    System.Threading.Thread.Sleep(500);
                     Environment.Exit(0);
                     break;
                 case "quit":
+                    Log.WriteLogToFile();
+                    System.Threading.Thread.Sleep(500);
                     Environment.Exit(0);
                     break;
                 default:

@@ -22,16 +22,31 @@ namespace Simple_FTP_Client
             // Create the full message
             string WriteMessage = Timestamp + LogMessage;
 
+            Console.WriteLine(WriteMessage);
+
+            Program.LogList.Add(WriteMessage);
+        }
+
+        public static void WriteLogToFile()
+        {
+            // 
+            Console.WriteLine("Writing the log to the log file...");
+            
             // Create a filestream to the log
             FileStream FileStream = File.OpenWrite("Simple_FTP_Client.log");
 
             // Create a StreamWriter to write to the file
             StreamWriter Writer = new StreamWriter(FileStream);
 
-            // Write the LogMessage to the file
-            Writer.WriteLine(WriteMessage);
+            for (int i = Program.LogList.Count; i > 0; i-- )
+            {
+                // Tell the user the progress
+                Console.WriteLine("Writing line " + i.ToString() + " of " + Program.LogList.Count.ToString());
 
-            // Close the file stream
+                // Write the line to the file
+                Writer.WriteLine(Program.LogList[i - 1]);
+            }
+            // Close the Writer
             Writer.Close();
         }
     }

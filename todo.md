@@ -1,10 +1,3 @@
-Goals for Release 3:
-=====================
-
-* Add a logging option
-* ~~Add documentation~~
-* ~~Add option to save credentials & ftp server~~
-
 Goals for Release 4:
 =================
 

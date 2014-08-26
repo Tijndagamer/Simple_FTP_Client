@@ -18,3 +18,10 @@ Silent option
 When uploading, downloading or viewing the files in a folder there are several print commands
 to show the user what the program is doing. Otherwise it looks like the program is doing nothing.
 If you don't want this, execute the command with "-silent" added to it.
+
+Logging
+============
+
+To log your actions in the ftp client, type "enable logging". Please be aware that this might
+lower the speed of the program. To disable it type "disable logging".
+Logging is disabled by default.

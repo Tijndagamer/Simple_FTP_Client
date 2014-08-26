@@ -24,7 +24,6 @@ namespace Simple_FTP_Client
                 Program.Password = Console.ReadLine();
             }
 
-
             // Create a new FileStream
             FileStream FileStream = File.OpenWrite("Credentials");
 
@@ -39,7 +38,8 @@ namespace Simple_FTP_Client
             Writer.Close();
 
             // Tell the user the credentials are saved
-            Console.WriteLine("Credentials saved.");
+            Console.WriteLine("Saved credentials.");
+            Program.Check(false, "Saved credentials.");
         }
         public static void LoadCredentials()
         {
@@ -60,7 +60,8 @@ namespace Simple_FTP_Client
                 Reader.Close();
 
                 // Tell the user the credentials are now loaded
-                Console.WriteLine("Credentials loaded.");
+                Console.WriteLine("Loaded credentials.");
+                Program.Check(false, "Loaded credentials.");
             }
             else
             {
