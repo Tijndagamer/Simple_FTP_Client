@@ -44,7 +44,7 @@ namespace Simple_FTP_Client
         public static void LoadCredentials()
         {
             // First check if the file exists
-            if (Directory.Exists("Credentials"))
+            if (File.Exists("Credentials"))
             {
                 // Create a new FileStream
                 FileStream FileStream = File.OpenRead("Credentials");
