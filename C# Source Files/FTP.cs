@@ -88,6 +88,7 @@ namespace Simple_FTP_Client
             catch (Exception e)
             {
                 Console.WriteLine("Error! \n" + e.ToString());
+                Program.Check(true, "Error! \n" + e.ToString());
             }
         }
 
@@ -128,6 +129,7 @@ namespace Simple_FTP_Client
             catch (Exception e)
             {
                 Console.WriteLine("Error! \n" + e.ToString());
+                Program.Check(true, "Error! \n" + e.ToString());
             }
         }
 
@@ -190,6 +192,7 @@ namespace Simple_FTP_Client
             {
                 // Print the error
                 Console.WriteLine("Error! \n" + e.ToString());
+                Program.Check(true, "Error! \n" + e.ToString());
 
                 // Stop the method.
                 string[] error = new string[10];

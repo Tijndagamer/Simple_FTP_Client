@@ -47,6 +47,8 @@ namespace Simple_FTP_Client
             }
             // Close the Writer
             writer.Close();
+
+            Program.LogList = null;
         }
     }
 }

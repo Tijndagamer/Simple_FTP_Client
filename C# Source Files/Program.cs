@@ -36,7 +36,7 @@ namespace Simple_FTP_Client
             string cmd;
 
             // Get it.
-            Console.Write(username + "@" + ftpServer + "$");
+            Console.Write(username + "@" + ftpServer + " $");
             cmd = Console.ReadLine();
 
             // Log the command if logging is enabled
@@ -92,6 +92,9 @@ namespace Simple_FTP_Client
                 case "disable logging":
                     Logging = false;
                     Console.WriteLine("Logging is now disabled");
+                    break;
+                case "write log to file":
+                    Log.WriteLogToFile();
                     break;
 
                 // Main Commands
