@@ -13,6 +13,39 @@ namespace Simple_FTP_Client
     /// </summary>
     class FTP
     {
+        private string username, password, ftpServer;
+
+        public string FTPServer
+        {
+            get
+            {
+                return ftpServer;
+            }
+            private set
+            {
+                ftpServer = value;
+            }
+        }
+
+        public string Username
+        {
+            get
+            {
+                return username;
+            }
+            private set
+            {
+                username = value;
+            }
+        }
+
+        public FTP(string username, string password, string ftpServer)
+        {
+            this.username = username;
+            this.password = password;
+            this.ftpServer = ftpServer;
+        }
+
         /// <summary>
         /// Uploads a file to a FTP server
         /// </summary>
@@ -20,32 +53,32 @@ namespace Simple_FTP_Client
         /// <param name="filePath">The path to the file that you want to upload</param>
         /// <param name="username">The username used to login</param>
         /// <param name="password">The password</param>
-        public static void UploadFile(string FTPAddress, string Filepath, string Username, string Password, bool Silent)
+        public void UploadFile(string filePath, bool silent)
         {
             try
             {
                 // Create FTP request
-                Program.Check(Silent, "    Create a new request and setting up the properties...");
-                FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(FTPAddress + "/" + Path.GetFileName(Filepath));
+                Program.Check(silent, "    Create a new request and setting up the properties...");
+                FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(ftpServer + "/" + Path.GetFileName(filePath));
 
                 // Set the properties
                 request.Method = WebRequestMethods.Ftp.UploadFile;
-                Program.Check(Silent, "    Logging in using username: " + Username);
-                request.Credentials = new NetworkCredential(Username, Password);
+                Program.Check(silent, "    Logging in using username: " + username);
+                request.Credentials = new NetworkCredential(username, password);
                 request.UsePassive = true;
                 request.UseBinary = true;
                 request.KeepAlive = false;
 
                 // Load the file
-                Program.Check(Silent, "    Loading the file...");
-                FileStream stream = File.OpenRead(Filepath);
+                Program.Check(silent, "    Loading the file...");
+                FileStream stream = File.OpenRead(filePath);
                 byte[] buffer = new byte[stream.Length];
 
                 stream.Read(buffer, 0, buffer.Length);
                 stream.Close();
 
                 // Upload file
-                Program.Check(Silent, "    Uploading the file...");
+                Program.Check(silent, "    Uploading the file...");
                 Stream reqStream = request.GetRequestStream();
                 reqStream.Write(buffer, 0, buffer.Length);
                 reqStream.Close();
@@ -61,11 +94,11 @@ namespace Simple_FTP_Client
         /// <summary>
         /// Download a file from a FTP server
         /// </summary>
-        /// <param name="FTPFileAddress">The address to the file.</param>
+        /// <param name="ftpFileAddress">The address to the file.</param>
         /// <param name="Username">The username</param>
         /// <param name="Password">The password</param>
-        /// <param name="LocalFileName">The local filename</param>
-        public static void DownloadFile(string FTPFileAddress, string Username, string Password, string LocalFileName, bool Silent)
+        /// <param name="localFileName">The local filename</param>
+        public void DownloadFile(string ftpFileAddress, string localFileName, bool silent)
         {
             try
             {
@@ -73,18 +106,18 @@ namespace Simple_FTP_Client
                 WebClient request = new WebClient();
 
                 // Setup the credentials
-                Program.Check(Silent, "    Logging in using username: " + Username);
-                request.Credentials = new NetworkCredential(Username, Password);
+                Program.Check(silent, "    Logging in using username: " + username);
+                request.Credentials = new NetworkCredential(Username, password);
 
                 // Download the data in a byte array
-                Program.Check(Silent, "    Downloading the raw data...");
-                byte[] FileData = request.DownloadData(FTPFileAddress);
+                Program.Check(silent, "    Downloading the raw data...");
+                byte[] FileData = request.DownloadData(ftpFileAddress);
 
                 // Create a FileStream so we can store the downloaded data
-                FileStream file = File.Create(LocalFileName);
+                FileStream file = File.Create(localFileName);
 
                 // Write the raw downloaded data to the file.
-                Program.Check(Silent, "    Writing the raw data to a file...");
+                Program.Check(silent, "    Writing the raw data to a file...");
                 file.Write(FileData, 0, FileData.Length);
 
                 // Close the FileStream
@@ -101,11 +134,11 @@ namespace Simple_FTP_Client
         /// <summary>
         /// Returns all the files in one directory
         /// </summary>
-        /// <param name="FTPFolderAddress">The folder on the FTP address, e.g.: ftp://127.0.0.1/testfolder </param>
+        /// <param name="ftpFolderAddress">The folder on the FTP address, e.g.: ftp://127.0.0.1/testfolder </param>
         /// <param name="Username">The username</param>
         /// <param name="Password">The password</param>
         /// <returns>The files in the directory</returns>
-        public static string[] GetFilesInDir(string FTPFolderAddress, string Username, string Password, bool Silent)
+        public string[] GetFilesInDir(string ftpFolderAddress, bool silent)
         {
             try
             {
@@ -113,19 +146,19 @@ namespace Simple_FTP_Client
                 StringBuilder result = new StringBuilder();
 
                 // Create a new instance of the FtpWebRequest class
-                Program.Check(Silent, "    Create a new request and setting up the properties...");
-                FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(FTPFolderAddress);
+                Program.Check(silent, "    Create a new request and setting up the properties...");
+                FtpWebRequest request = (FtpWebRequest)FtpWebRequest.Create(ftpFolderAddress);
 
                 // Set the properties
                 request.Method = WebRequestMethods.Ftp.ListDirectory;
-                Program.Check(Silent, "    Logging in using username: " + Username);
-                request.Credentials = new NetworkCredential(Username, Password);
+                Program.Check(silent, "    Logging in using username: " + username);
+                request.Credentials = new NetworkCredential(username, password);
                 request.UseBinary = true;
                 request.UsePassive = false;
                 request.KeepAlive = false;
 
                 // Get the response from the FTP server
-                Program.Check(Silent, "    Get the Response...");
+                Program.Check(silent, "    Get the Response...");
                 WebResponse response = request.GetResponse();
 
                 // Create a new instance of the StreamReader class to read the response

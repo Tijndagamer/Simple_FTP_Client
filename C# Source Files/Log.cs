@@ -32,10 +32,10 @@ namespace Simple_FTP_Client
             Console.WriteLine("Writing the log to the log file...");
             
             // Create a filestream to the log
-            FileStream FileStream = File.OpenWrite("Simple_FTP_Client.log");
+            FileStream fileStream = File.OpenWrite("Simple_FTP_Client.log");
 
             // Create a StreamWriter to write to the file
-            StreamWriter Writer = new StreamWriter(FileStream);
+            StreamWriter writer = new StreamWriter(fileStream);
 
             for (int i = Program.LogList.Count; i > 0; i-- )
             {
@@ -43,10 +43,10 @@ namespace Simple_FTP_Client
                 Console.WriteLine("Writing line " + i.ToString() + " of " + Program.LogList.Count.ToString());
 
                 // Write the line to the file
-                Writer.WriteLine(Program.LogList[i - 1]);
+                writer.WriteLine(Program.LogList[i - 1]);
             }
             // Close the Writer
-            Writer.Close();
+            writer.Close();
         }
     }
 }

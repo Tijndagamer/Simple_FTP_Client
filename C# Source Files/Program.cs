@@ -9,15 +9,20 @@ namespace Simple_FTP_Client
     class Program
     {
         // Global variables
-        public static string Username, Password;
+        public static string username, password, ftpServer;
         public static bool Logging = false;
         public static List<string> LogList = new List<string>();
+        public static FTP ftp;
 
         static void Main(string[] args)
         {
             // Welcome the user.
             Console.WriteLine("Welcome to Simple FTP Client.");
             Console.WriteLine("Type help for a list of commands.");
+
+            UserInteraction.GetStartVariables();
+
+            ftp = new FTP(username, password, ftpServer);
 
             while (true)
             {
@@ -31,7 +36,7 @@ namespace Simple_FTP_Client
             string cmd;
 
             // Get it.
-            Console.Write("> ");
+            Console.Write(username + "@" + ftpServer + "$");
             cmd = Console.ReadLine();
 
             // Log the command if logging is enabled
@@ -113,16 +118,16 @@ namespace Simple_FTP_Client
         /// The if/else statement for logging/output, to reduce the amount of copy code and lines
         /// </summary>
         /// <param name="Silent"></param>
-        /// <param name="Message"></param>
-        public static void Check(bool Silent, string Message)
+        /// <param name="message"></param>
+        public static void Check(bool silent, string message)
         {
-            if (Silent == false)
+            if (silent == false)
             {
-                Console.WriteLine(Message);
+                Console.WriteLine(message);
             }
             if (Program.Logging == true)
             {
-                Log.LogOneLine(Message);
+                Log.LogOneLine(message);
             }
         }
     }

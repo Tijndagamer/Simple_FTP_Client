@@ -14,14 +14,14 @@ namespace Simple_FTP_Client
     {
         public static void SaveCredentials()
         {
-            if (string.IsNullOrEmpty(Program.Username))
+            if (string.IsNullOrEmpty(Program.username))
             {
                 // Get the credentials
                 Console.Write("Username = ");
-                Program.Username = Console.ReadLine();
+                Program.username = Console.ReadLine();
 
                 Console.Write("Password = ");
-                Program.Password = Console.ReadLine();
+                Program.password = Console.ReadLine();
             }
 
             // Create a new FileStream
@@ -31,8 +31,8 @@ namespace Simple_FTP_Client
             StreamWriter Writer = new StreamWriter(FileStream);
 
             // Write the credentials to a file
-            Writer.WriteLine(Program.Username);
-            Writer.WriteLine(Program.Password);
+            Writer.WriteLine(Program.username);
+            Writer.WriteLine(Program.password);
 
             // Close the streamwriter
             Writer.Close();
@@ -52,8 +52,8 @@ namespace Simple_FTP_Client
                 StreamReader Reader = new StreamReader(FileStream);
 
                 // Read the file and assign the variables
-                Program.Username = Reader.ReadLine();
-                Program.Password = Reader.ReadLine();
+                Program.username = Reader.ReadLine();
+                Program.password = Reader.ReadLine();
 
                 // Close the reader
                 Reader.Close();
