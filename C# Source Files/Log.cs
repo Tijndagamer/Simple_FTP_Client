@@ -28,7 +28,7 @@ namespace Simple_FTP_Client
 
         public static void WriteLogToFile()
         {
-            // 
+            // <add a comment here because I want a comment for every line but I don't know a good comment for this line>
             Console.WriteLine("Writing the log to the log file...");
             
             // Create a filestream to the log
@@ -40,7 +40,9 @@ namespace Simple_FTP_Client
             for (int i = Program.LogList.Count; i > 0; i-- )
             {
                 // Tell the user the progress
-                Console.WriteLine("Writing line " + i.ToString() + " of " + Program.LogList.Count.ToString());
+                Console.Write("Progress: ");
+                Console.Write(i / Program.LogList.Count);
+                Console.Write("\n");
 
                 // Write the line to the file
                 writer.WriteLine(Program.LogList[i - 1]);
