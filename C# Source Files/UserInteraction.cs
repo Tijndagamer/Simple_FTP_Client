@@ -12,32 +12,55 @@ namespace Simple_FTP_Client
     /// </summary>
     class UserInteraction
     {
+        // User interaction methods
+
         /// <summary>
         /// Prints all the available commands
         /// </summary>
-        public static void help()
+        public static void Help()
         {
             Console.WriteLine("The available commands are: \n Upload File \n Download File \n Get files in dir \n Download all files in dir \n Enable logging \n Disable logging \n Write log to file \n Help");
         }
 
-        // User interaction methods
+        public static void Exit()
+        {
+            if (Program.Logging == true)
+            {
+                // Write the log to the file
+                Log.WriteLogToFile();
+
+                // Wait for 500 miliseconds, I'm not sure why but the code doesn't work properly without it.
+                System.Threading.Thread.Sleep(500);
+            }
+
+            // Actually exit the program
+            Environment.Exit(0);
+        }
 
         /// <summary>
         /// Gets the variables needed from the user to create a FTP object
         /// </summary>
         public static void GetStartVariables()
         {
-            Console.Write("Username = ");
-            string username = Console.ReadLine();
+            if (File.Exists("Credentials"))
+            {
+                CredentialsHandling.LoadCredentials();
+            }
+            else
+            {
+                Console.Write("Username = ");
+                string username = Console.ReadLine();
 
-            Console.Write("Password = ");
-            string password = Console.ReadLine();
+                Console.Write("Password = ");
+                string password = Console.ReadLine();
+
+                Program.username = username;
+                Program.password = password;
+            }
 
             Console.Write("FTP Server = ");
             string ftpServer = Console.ReadLine();
 
-            Program.username = username;
-            Program.password = password;
             Program.ftpServer = ftpServer;
         }
 

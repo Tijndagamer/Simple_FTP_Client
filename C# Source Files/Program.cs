@@ -99,12 +99,10 @@ namespace Simple_FTP_Client
 
                 // Main Commands
                 case "help":
-                    UserInteraction.help();
+                    UserInteraction.Help();
                     break;
                 case "exit":
-                    Log.WriteLogToFile();
-                    System.Threading.Thread.Sleep(500);
-                    Environment.Exit(0);
+                    UserInteraction.Exit();
                     break;
                 case "quit":
                     Log.WriteLogToFile();
