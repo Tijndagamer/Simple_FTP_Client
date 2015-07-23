@@ -25,10 +25,3 @@ Logging
 To log your actions in the ftp client, type "enable logging". Please be aware that this might
 lower the speed of the program. To disable it type "disable logging".
 Logging is disabled by default.
-
-Like the project?
-=================
-
-If you like the project, please consider donating!
-
-Bitcoin: 14ro2Pwsuu4adtNNytEhRJV4JNjT7wGPrN
